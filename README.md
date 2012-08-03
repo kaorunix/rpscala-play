@@ -12,5 +12,5 @@ How to start
 
 % play run
 
-Before executing colibrifw you should install playframework 2.0
+Before executing rpscala-play you should install playframework 2.0
 http://www.playframework.org/
