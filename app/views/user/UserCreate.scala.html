@@ -1,0 +1,21 @@
+@(userForm: Form[jp.scala.controllers.UserForm])
+
+@import helper._
+@import jp.scala.controllers._
+
+<html>
+  <head>
+    <title>Scala勉強会 playフォームHandson User登録</title>
+  </head>
+  <body>
+    @helper.form(action = routes.Application.create) {
+    <fieldset>
+      @inputText(userForm("login"), '_label -> "ログイン名")
+      @inputText(userForm("name"), '_label -> "名称")
+      @inputText(userForm("email"), '_label -> "メールアドレス")
+      @select(userForm("sex"), Seq(("1", "男性"), ("2", "女性")), '_label -> "性別")
+    </fieldset>
+    <input type="submit" class="btn primary" value="作成">
+    }
+  </body>
+</html>
