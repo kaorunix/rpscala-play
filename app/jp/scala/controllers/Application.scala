@@ -6,14 +6,14 @@ import play.api.data._
 import play.api.data.Forms._
 import jp.scala.daos.UserDao
 
-case class UserForm(login:String, name:String, email:String, sex:Int)
+case class UserForm(login:String, name:String, email:Option[String)
 
 object Application extends Controller {
   val userForm = Form(
     mapping(
       "login" -> nonEmptyText,
       "name" -> nonEmptyText,
-      "email" -> email,
+      "email" -> optional(email),
       "sex" -> number
     )(UserForm.apply)(UserForm.unapply)
   )
@@ -28,5 +28,8 @@ object Application extends Controller {
 	    Redirect(routes.Application.index)
 	  }
 	)
+  }
+  def list = Action {
+    Ok(views.html.user.UserList(UserDao.selectAll))
   }
 }

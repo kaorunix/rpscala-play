@@ -1,0 +1,23 @@
+@(users: List[jp.scala.daos.UserDao])
+
+@import helper._
+@import jp.scala.controllers._
+@import views.html.user._
+
+<html>
+  <head>
+    <title>Scala勉強会 playフォームHandson User一覧</title>
+  </head>
+  <body>
+    <h2>ユーザ一覧</h2>
+    <table border=1>
+      <tr>
+	<th>ログイン名</th>
+	<th>名称</th>
+	<th>メールアドレス</th>
+	<th>性別</th>
+      </tr>
+      @users.map(user => UserObject(user))
+    </table>
+  </body>
+</html>
