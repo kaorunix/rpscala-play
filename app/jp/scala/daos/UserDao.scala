@@ -10,7 +10,7 @@ case class UserDao(
   id:Pk[Int],
   login:String,
   name:String,
-  mail:Option[String],
+  email:Option[String],
   sex:Int
     ) {
 }
@@ -20,25 +20,25 @@ object UserDao {
     get[Pk[Int]]("id") ~
     get[String]("login") ~
     get[String]("name") ~
-    get[Option[String]]("mail") ~
+    get[Option[String]]("email") ~
     get[Int]("sex")  map {
-      case id~login~name~mail~sex =>
+      case id~login~name~email~sex =>
         UserDao(id,
           login,
           name,
-          mail,
+          email,
           sex)
     }
   }
   def insert(form:jp.scala.controllers.UserForm) = {
     DB.withConnection { implicit c =>
       SQL("""
-          insert into User (login, name, mail, sex)
-          values ({login}, {name}, {mail}, {sex})
+          insert into User (login, name, email, sex)
+          values ({login}, {name}, {email}, {sex})
           """)
           .on("login" -> form.login,
         	  "name" -> form.name,
-        	  "mail" -> form.email,
+        	  "email" -> form.email,
               "sex" -> form.sex)
               .executeUpdate()
     }

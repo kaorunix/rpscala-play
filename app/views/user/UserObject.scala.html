@@ -6,7 +6,7 @@
 <tr>
   <td>@user.login</td>
   <td>@user.name</td>
-  <td>@user.mail.getOrElse("No mail")</td>
+  <td>@user.email.getOrElse("No mail")</td>
   <td>@{user.sex match {
     case 1 => "男性"
     case 2 => "女性"

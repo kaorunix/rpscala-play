@@ -6,7 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import jp.scala.daos.UserDao
 
-case class UserForm(login:String, name:String, email:Option[String])
+case class UserForm(login:String, name:String, email:Option[String], sex:Int)
 
 object Application extends Controller {
   val userForm = Form(
