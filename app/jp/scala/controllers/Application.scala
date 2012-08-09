@@ -23,7 +23,7 @@ object Application extends Controller {
   }
   def create = Action { implicit request =>
   	userForm.bindFromRequest.fold(
-	  errors => {println("error:"+errors.toString());BadRequest(views.html.user.UserCreate(errors))},
+	  errors => BadRequest(views.html.user.UserCreate(errors)),
 	  form => {
 	    UserDao.insert(form)
 	    Redirect(routes.Application.list)
