@@ -9,6 +9,7 @@
     <title>Scala勉強会 playフォームHandson User一覧</title>
   </head>
   <body>
+    <a href="/user/create">ユーザ登録</a>
     <h2>ユーザ一覧</h2>
     <table border=1>
       <tr>
@@ -16,6 +17,7 @@
 	<th>名称</th>
 	<th>メールアドレス</th>
 	<th>性別</th>
+	<td>&nbsp;</td>
       </tr>
       @users.map(user => UserObject(user))
     </table>

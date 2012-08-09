@@ -48,4 +48,24 @@ object UserDao {
 	  SQL("SELECT * FROM User").as(UserDao.simple *)
 	}
   }
+  def select(id:Int) = {
+	DB.withConnection { implicit c =>
+	  SQL("SELECT * FROM User where id = {id}").on("id" -> id).as(UserDao.simple.singleOpt)
+	}
+  }
+  def update(form:jp.scala.controllers.UserForm) = {
+    DB.withConnection { implicit c =>
+      SQL("""
+          update User set
+          login={login}, name={name}, email={email}, sex={sex}
+          where id={id}
+          """)
+          .on("login" -> form.login,
+        	  "name" -> form.name,
+        	  "email" -> form.email,
+              "sex" -> form.sex,
+              "id" -> form.id)
+              .executeUpdate()
+    }
+  }
 }

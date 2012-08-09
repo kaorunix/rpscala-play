@@ -5,18 +5,18 @@
 
 <html>
   <head>
-    <title>Scala勉強会 playフォームHandson User登録</title>
+    <title>Scala勉強会 playフォームHandson User変更</title>
   </head>
   <body>
-    @helper.form(action = routes.Application.create) {
+    @helper.form(action = routes.Application.modify) {
     <fieldset>
-      <input type="hidden" name="id" value="0">
+      <input type="hidden" name="id" value="@userForm.get.id">
       @inputText(userForm("login"), '_label -> "ログイン名")
       @inputText(userForm("name"), '_label -> "名称")
       @inputText(userForm("email"), '_label -> "メールアドレス")
       @select(userForm("sex"), Seq(("1", "男性"), ("2", "女性")), '_label -> "性別")
     </fieldset>
-    <input type="submit" class="btn primary" value="作成">
+    <input type="submit" class="btn primary" value="更新">
     }
   </body>
 </html>
