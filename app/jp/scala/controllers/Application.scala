@@ -22,7 +22,6 @@ object Application extends Controller {
     Ok(views.html.user.UserCreate(userForm))
   }
   def create = Action { implicit request =>
-    println("TEST")
   	userForm.bindFromRequest.fold(
 	  errors => {println("error:"+errors.toString());BadRequest(views.html.user.UserCreate(errors))},
 	  form => {
@@ -52,5 +51,9 @@ object Application extends Controller {
 	    Redirect(routes.Application.list)
 	  }
 	)
+  }
+  def delete(id:String) = Action {
+    UserDao.delete(id.toInt)
+    Redirect(routes.Application.list)
   }
 }

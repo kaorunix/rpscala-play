@@ -68,4 +68,9 @@ object UserDao {
               .executeUpdate()
     }
   }
+  def delete(id:Int) = {
+    DB.withConnection { implicit c =>
+      SQL("delete User where id = {id}").on("id" -> id).execute()
+    }
+  }
 }
