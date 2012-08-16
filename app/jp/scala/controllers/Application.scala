@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import jp.scala.daos.UserDao
+import jp.scala.models.User
 
 case class UserForm(login:String, name:String, email:String, sex:Int)
 
@@ -24,7 +24,7 @@ object Application extends Controller {
   	userForm.bindFromRequest.fold(
 	  errors => BadRequest(views.html.user.UserCreate(errors)),
 	  form => {
-	    UserDao.insert(form)
+	    User.insert(form)
 	    Redirect(routes.Application.index)
 	  }
 	)

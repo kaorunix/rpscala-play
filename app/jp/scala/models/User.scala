@@ -1,11 +1,11 @@
-package jp.scala.daos
+package jp.scala.models
 
 import anorm._
 import anorm.SqlParser._
 import play.api.db.DB
 import play.api.Play.current
 
-object UserDao {
+object User {
   def insert(form:jp.scala.controllers.UserForm) = {
     DB.withConnection { implicit c =>
       SQL("""
