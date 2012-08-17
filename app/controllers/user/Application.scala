@@ -6,8 +6,6 @@ import play.api.data._
 import play.api.data.Forms._
 import jp.scala.daos.UserDao
 
-case class UserForm(login:String, name:String, email:Option[String], sex:Int)
-
 object Application extends Controller {
   val userForm = Form(
     mapping(
@@ -31,5 +29,10 @@ object Application extends Controller {
   }
   def list = Action {
     Ok(views.html.user.UserList(UserDao.selectAll))
+  }
+  def selectAll() = {
+    DB.withConnection { implicit c =>
+      SQL("SELECT * FROM User").as(UserDao.simple *)
+    }
   }
 }
