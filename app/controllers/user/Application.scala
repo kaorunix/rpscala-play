@@ -1,4 +1,4 @@
-package jp.scala.controllers
+package controllers.user
 
 import play.api._
 import play.api.mvc._
