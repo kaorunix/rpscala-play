@@ -4,9 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /user/create                jp.scala.controllers.Application.index
-POST    /user/create                jp.scala.controllers.Application.create
-GET     /user/list                  jp.scala.controllers.Application.list
+GET     /user/create                controllers.Application.user.index
+POST    /user/create                controllers.Application.user.create
+GET     /user/list                  controllers.Application.user.list
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
