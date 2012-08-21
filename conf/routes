@@ -3,12 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /user/create                jp.scala.controllers.Application.index
-POST    /user/create                jp.scala.controllers.Application.create
-GET     /                           jp.scala.controllers.Application.list
-GET     /user/modify/:id            jp.scala.controllers.Application.modifyById(id)
-POST    /user/modify/               jp.scala.controllers.Application.modify
-GET     /user/delete/:id            jp.scala.controllers.Application.delete(id)
+GET     /user/create                controllers.user.Application.index
+POST    /user/create                controllers.user.Application.create
+GET     /                           controllers.user.Application.list
+GET     /user/modify/:id            controllers.user.Application.modifyById(id)
+POST    /user/modify/               controllers.user.Application.modify
+GET     /user/delete/:id            controllers.user.Application.delete(id)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
