@@ -1,12 +1,11 @@
-package jp.scala.daos
+package jp.scala.models
 
 import anorm._
 import anorm.SqlParser._
 import play.api.db.DB
 import play.api.Play.current
-import play.api.data.Form
 
-case class UserDao(
+case class User(
   id:Pk[Int],
   login:String,
   name:String,
@@ -15,7 +14,7 @@ case class UserDao(
     ) {
 }
 
-object UserDao {
+object User {
   val simple = {
     get[Pk[Int]]("id") ~
     get[String]("login") ~
@@ -23,48 +22,48 @@ object UserDao {
     get[Option[String]]("email") ~
     get[Int]("sex")  map {
       case id~login~name~email~sex =>
-        UserDao(id,
+        User(id,
           login,
           name,
           email,
           sex)
     }
   }
-  def insert(form:jp.scala.controllers.UserForm) = {
+  def insert(u:User) = {
     DB.withConnection { implicit c =>
       SQL("""
           insert into User (login, name, email, sex)
           values ({login}, {name}, {email}, {sex})
           """)
-          .on("login" -> form.login,
-        	  "name" -> form.name,
-        	  "email" -> form.email,
-              "sex" -> form.sex)
+          .on("login" -> u.login,
+        	  "name" -> u.name,
+        	  "email" -> u.email.getOrElse(""),
+              "sex" -> u.sex)
               .executeUpdate()
     }
   }
   def selectAll() = {
 	DB.withConnection { implicit c =>
-	  SQL("SELECT * FROM User").as(UserDao.simple *)
+	  SQL("SELECT * FROM User").as(User.simple *)
 	}
   }
   def select(id:Int) = {
 	DB.withConnection { implicit c =>
-	  SQL("SELECT * FROM User where id = {id}").on("id" -> id).as(UserDao.simple.singleOpt)
+	  SQL("SELECT * FROM User where id = {id}").on("id" -> id).as(User.simple.singleOpt)
 	}
   }
-  def update(form:jp.scala.controllers.UserForm) = {
+  def update(u:User) = {
     DB.withConnection { implicit c =>
       SQL("""
           update User set
           login={login}, name={name}, email={email}, sex={sex}
           where id={id}
           """)
-          .on("login" -> form.login,
-        	  "name" -> form.name,
-        	  "email" -> form.email,
-              "sex" -> form.sex,
-              "id" -> form.id)
+          .on("login" -> u.login,
+        	  "name" -> u.name,
+        	  "email" -> u.email,
+              "sex" -> u.sex,
+              "id" -> u.id.get)
               .executeUpdate()
     }
   }

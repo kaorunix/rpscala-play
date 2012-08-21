@@ -1,12 +1,11 @@
-package jp.scala.controllers
+package controllers.user
 
 import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import jp.scala.daos.UserDao
-
-case class UserForm(id:Int, login:String, name:String, email:Option[String], sex:Int)
+import jp.scala.models.User
+import jp.scala.forms.UserForm
 
 object Application extends Controller {
   val userForm = Form(
@@ -25,29 +24,29 @@ object Application extends Controller {
   	userForm.bindFromRequest.fold(
 	  errors => BadRequest(views.html.user.UserCreate(errors)),
 	  form => {
-	    UserDao.insert(form)
+	    User.insert(form.toUser)
 	    Redirect(routes.Application.list)
 	  }
 	)
   }
   def list = Action {
-    Ok(views.html.user.UserList(UserDao.selectAll))
+    Ok(views.html.user.UserList(User.selectAll))
   }
   def modifyById(id:String) = Action {
-    val userDao = UserDao.select(id.toInt).get
+    val user = User.select(id.toInt).get
     val userform = UserForm(
-	  userDao.id.get,
-	  userDao.login,
-	  userDao.name,
-  	  userDao.email,
-   	  userDao.sex)
+	  user.id.get,
+	  user.login,
+	  user.name,
+  	  user.email,
+   	  user.sex)
     Ok(views.html.user.UserModify(userForm.fill(userform)))
   }
   def modify() = Action { implicit request =>
   	userForm.bindFromRequest.fold(
 	  errors => BadRequest(views.html.user.UserModify(errors)),
 	  form => {
-	    UserDao.update(form)
+	    User.update(form.toUser)
 	    Redirect(routes.Application.list)
 	  }
 	)
