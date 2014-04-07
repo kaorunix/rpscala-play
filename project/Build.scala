@@ -6,6 +6,7 @@ object ApplicationBuild extends Build {
 
     val appName         = "rpscala-play"
     val appVersion      = "1.0-SNAPSHOT"
+    val dspScalaVersion = "2.10.3"
 
     val appDependencies = Seq(
       // Add your project dependencies here,
